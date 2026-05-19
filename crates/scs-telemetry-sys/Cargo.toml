@@ -1,0 +1,15 @@
+[package]
+name = "scs-telemetry-sys"
+description = "Raw #[no_std] FFI bindings for the SCS SDK C ABI (scssdk_telemetry.h and related headers)"
+readme = "README.md"
+
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]

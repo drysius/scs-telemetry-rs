@@ -1,0 +1,17 @@
+[package]
+name = "console-log"
+description = "Console example: connect to SCS telemetry shared memory and print live truck data"
+
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "console-log"
+path = "src/main.rs"
+
+[dependencies]
+scs-telemetry-client = { workspace = true }

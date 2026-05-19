@@ -1,0 +1,21 @@
+[package]
+name = "scs-telemetry"
+description = "SCS telemetry plugin DLL — exports scs_telemetry_init / scs_telemetry_shutdown and writes to shared memory"
+readme = "README.md"
+
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+scs-telemetry-sys = { workspace = true }
+scs-telemetry-shared-memory = { workspace = true }
+windows-sys = { workspace = true }

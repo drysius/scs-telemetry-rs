@@ -1,0 +1,17 @@
+[package]
+name = "scs-telemetry-client"
+description = "Client library for reading SCS telemetry from the shared memory segment written by the scs-telemetry plugin"
+readme = "README.md"
+
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+scs-telemetry-shared-memory = { workspace = true }
+windows-sys = { workspace = true }

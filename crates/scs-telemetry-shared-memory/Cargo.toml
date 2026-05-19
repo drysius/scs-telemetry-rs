@@ -1,0 +1,16 @@
+[package]
+name = "scs-telemetry-shared-memory"
+description = "Shared memory layout (TelemetryMap) for the SCS telemetry plugin — byte-compatible with scsTelemetryMap_t PLUGIN_REVISION 12"
+readme = "README.md"
+
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+bytemuck = { workspace = true }

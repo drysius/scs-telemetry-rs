@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: "-D warnings"
+
+jobs:
+  check-portable:
+    name: check (no_std crates, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: cargo check (all crates, current host)
+        run: cargo check --workspace
+
+  build-windows:
+    name: build (windows plugin + client)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+      - uses: Swatinem/rust-cache@v2
+      - name: cargo build --release
+        run: cargo build --workspace --release --target x86_64-pc-windows-msvc
+      - name: upload plugin DLLs
+        uses: actions/upload-artifact@v4
+        with:
+          name: scs_telemetry-windows-x64
+          path: |
+            target/x86_64-pc-windows-msvc/release/scs_telemetry.dll
+            target/x86_64-pc-windows-msvc/release/scs_telemetry_console_log.dll
+
+  build-linux:
+    name: build (linux plugin + client .so)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-linux-gnu
+      - uses: Swatinem/rust-cache@v2
+      - name: cargo build --release
+        run: cargo build --workspace --release --target x86_64-unknown-linux-gnu
+      - name: upload plugin shared objects
+        uses: actions/upload-artifact@v4
+        with:
+          name: scs_telemetry-linux-x64
+          path: |
+            target/x86_64-unknown-linux-gnu/release/libscs_telemetry.so
+            target/x86_64-unknown-linux-gnu/release/libscs_telemetry_console_log.so
+
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - run: cargo fmt --all -- --check
+
+  clippy:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo clippy --workspace --target x86_64-pc-windows-msvc --all-targets -- -D warnings
+
+  publish-dry-run:
+    name: cargo publish --dry-run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo publish -p scs-telemetry-sys --dry-run
+      - run: cargo publish -p scs-telemetry-shared-memory --dry-run
+      # scs-telemetry-sdk and scs-telemetry-client are Windows-only
+      # (cfg(windows)); their dry-runs happen on the windows job.
