@@ -1,4 +1,6 @@
-use scs_telemetry_shared_memory::{TelemetryMap, SHARED_MEMORY_NAME};
+use scs_telemetry_shared_memory::TelemetryMap;
+#[cfg(windows)]
+use scs_telemetry_shared_memory::SHARED_MEMORY_NAME;
 use crate::error::Error;
 
 #[cfg(windows)]

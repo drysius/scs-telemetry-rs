@@ -1,4 +1,3 @@
-use core::mem::size_of;
 use scs_telemetry_shared_memory::TelemetryMap;
 
 #[cfg(windows)]
@@ -28,6 +27,7 @@ impl ShmWriter {
     pub fn create() -> Result<Self, ()> {
         #[cfg(windows)]
         {
+            use core::mem::size_of;
             use scs_telemetry_shared_memory::SHARED_MEMORY_NAME;
             let name_bytes = SHARED_MEMORY_NAME.as_bytes();
             let mut name_buf = [0u8; 64];
