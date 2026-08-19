@@ -19,7 +19,17 @@
       "Bash(unzip -o /tmp/scs_sdk/scs_sdk_1_14.zip 'include/common/*' -d /tmp/scs_sdk/scs_sdk_1_14_reextract)",
       "Bash(awk '{n=$2; v=$3; for\\(i=4;i<=NF;i++\\) v=v\" \"$i; print n\"\\\\t\"v}')",
       "Bash(rustup target *)",
-      "Bash(cargo test *)"
+      "Bash(cargo test *)",
+      "Bash(git rm *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "WebSearch",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\danie\\\\Documents\\\\GitHub\\\\scs-sdk-rs\" -Recurse -File -Filter \"README*\")",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "WebFetch(domain:modding.scssoft.com)",
+      "Bash(gh api *)",
+      "Bash(python -c \"import sys,json; [print\\(x['name']\\) for x in json.load\\(sys.stdin\\)]\")",
+      "WebFetch(domain:github.com)"
     ]
   }
 }

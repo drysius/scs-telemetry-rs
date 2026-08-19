@@ -4,3 +4,5 @@ Cargo.lock.bak
 .vscode/
 .idea/
 *.pdb
+scs_sdk_1_14
+examples/fn-test

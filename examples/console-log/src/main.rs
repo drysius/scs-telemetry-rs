@@ -15,7 +15,6 @@ fn main() {
 
     loop {
         let map = reader.read();
-
         if map.sdk_active == 0 {
             println!("[waiting for game...]");
         } else {

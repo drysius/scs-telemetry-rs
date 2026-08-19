@@ -6,6 +6,7 @@ members = [
     "crates/scs-telemetry",
     "crates/scs-telemetry-client",
     "examples/console-log",
+    "examples/fn-test",
 ]
 
 [workspace.package]
